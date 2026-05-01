@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RdSAP BRE PDF AI Assistant</title>
+  <meta name="description" content="Question-answering app using only the BRE RdSAP Conventions v12.1 PDF as its data source." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <style>
+    :root,[data-theme="light"]{--bg:#f7f6f2;--surface:#f9f8f5;--surface2:#fbfbf9;--offset:#edeae5;--border:#d4d1ca;--text:#28251d;--muted:#615f58;--inverse:#f9f8f4;--primary:#01696f;--primary2:#cedcd8;--radius:1rem;--shadow:0 10px 28px rgba(0,0,0,.08);--font-body:'Instrument Sans',system-ui,sans-serif;--font-display:'Fraunces',Georgia,serif}
+    [data-theme="dark"]{--bg:#171614;--surface:#1c1b19;--surface2:#201f1d;--offset:#22211f;--border:#393836;--text:#e6e2db;--muted:#b1aca3;--inverse:#171614;--primary:#63aeb7;--primary2:#263437;--shadow:0 10px 28px rgba(0,0,0,.35)}
+    *{box-sizing:border-box} body{margin:0;font-family:var(--font-body);background:radial-gradient(circle at top right,var(--primary2),transparent 24%),var(--bg);color:var(--text);line-height:1.6} button,input,a{font:inherit} button{cursor:pointer;border:0} .shell{max-width:1200px;margin:0 auto;padding:24px} .top,.hero,.grid{display:grid;gap:24px}.top{grid-template-columns:1fr auto;align-items:center;margin-bottom:24px}.hero,.grid{grid-template-columns:1.08fr .92fr}.card{background:var(--surface);border:1px solid color-mix(in srgb,var(--text) 10%,transparent);border-radius:20px;padding:clamp(20px,2vw,32px);box-shadow:var(--shadow)} h1{margin:0 0 12px;font-family:var(--font-display);font-size:clamp(2rem,1.2rem + 2.5vw,3.5rem);line-height:1.02;max-width:10ch} h2{margin:0 0 10px;font-size:1.25rem} p{margin:.35rem 0 0;color:var(--muted)} .kicker{font-size:.92rem;letter-spacing:.12em;text-transform:uppercase;color:var(--primary);font-weight:700;margin-bottom:10px}.logo{display:flex;align-items:center;gap:12px}.logo svg{width:42px;height:42px;color:var(--primary)} .status,.tag,.cite{display:inline-flex;align-items:center;padding:.42rem .72rem;border-radius:999px;font-size:.88rem;background:var(--primary2)} .cite{margin-top:10px;background:var(--offset);color:var(--muted)} .toolbar{display:grid;grid-template-columns:1fr auto auto;gap:12px;margin:14px 0}.input{width:100%;padding:16px;border-radius:16px;border:1px solid var(--border);background:var(--bg);color:var(--text)} .btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;background:var(--primary);color:var(--inverse);padding:15px 18px;border-radius:999px}.ghost{background:var(--offset);color:var(--text);border:1px solid var(--border)} .quick,.facts,.actions{display:flex;flex-wrap:wrap;gap:10px}.results{display:grid;gap:12px}.panel{padding:16px;border-radius:16px;background:var(--surface2);border:1px solid color-mix(in srgb,var(--text) 10%,transparent)} .small{font-size:.92rem}.answer{font-size:1.03rem;color:var(--text)} .source-box{font-size:.94rem}.highlight{background:color-mix(in srgb,var(--primary) 18%,#fff5a8);padding:.04rem .15rem;border-radius:.2rem} @media(max-width:980px){.top,.hero,.grid,.toolbar{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<div class="shell">
+  <div class="top">
+    <div class="logo">
+      <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" aria-label="Logo"><rect x="10" y="8" width="32" height="46" rx="8"></rect><path d="M20 20h12M20 30h12M20 40h12"></path><circle cx="46" cy="42" r="10"></circle><path d="M53 49l6 6"></path></svg>
+      <div><strong>RdSAP BRE PDF AI Assistant</strong><div class="small">Single-source mode</div></div>
+    </div>
+    <div class="actions" style="justify-content:flex-end">
+      <span class="status">Only source: BRE PDF</span>
+      <a class="btn ghost" href="https://bregroup.com/documents/d/bre-group/rdsap-conventions-v12-1-21-august-2025-final" target="_blank" rel="noopener noreferrer">Open conventions PDF</a>
+      <button id="themeToggle" class="btn ghost" type="button">Toggle theme</button>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="card">
+      <div class="kicker">Locked to one document</div>
+      <h1>This app answers from the BRE RdSAP Conventions PDF only.</h1>
+      <p>The knowledge base in this version is limited to extracted passages from the BRE Group document <em>Conventions (v12.1) for RdSAP 10</em>, applicable from 21 August 2025. No other guidance source is used in the app content.</p>
+      <div class="facts" style="margin-top:14px">
+        <span class="tag">Source pages embedded</span>
+        <span class="tag">Question answering</span>
+        <span class="tag">Evidence with page refs</span>
+      </div>
+      <div class="panel source-box" style="margin-top:16px">
+        <strong>Source document</strong>
+        <p><a href="https://bregroup.com/documents/d/bre-group/rdsap-conventions-v12-1-21-august-2025-final" target="_blank" rel="noopener noreferrer">BRE Group – Conventions (v12.1) for RdSAP 10</a></p>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Suggested questions</h2>
+      <div class="quick">
+        <button class="btn ghost" data-q="When is a basement included in the assessment?">Basements</button>
+        <button class="btn ghost" data-q="How are roof rooms treated?">Roof rooms</button>
+        <button class="btn ghost" data-q="What is an alternative wall?">Alternative wall</button>
+        <button class="btn ghost" data-q="When can U-values be overwritten?">U-values</button>
+      </div>
+      <div class="panel small" style="margin-top:16px">The app is intentionally locked to one source. That means answers will only come from the BRE PDF extracts embedded below, with convention number and page references shown as evidence.</div>
+    </div>
+  </section>
+
+  <section class="grid" style="margin-top:24px">
+    <div class="card">
+      <h2>Ask the PDF</h2>
+      <div class="toolbar">
+        <input id="questionInput" class="input" type="text" placeholder="Ask a question about the BRE RdSAP conventions PDF" />
+        <button id="askBtn" class="btn" type="button">Answer</button>
+        <button id="clearBtn" class="btn ghost" type="button">Clear text</button>
+      </div>
+      <div id="answerArea" class="results"></div>
+    </div>
+    <div class="card">
+      <h2>Supporting extracts</h2>
+      <div id="evidenceArea" class="results"></div>
+    </div>
+  </section>
+</div>
+
+<script>
+const DOCS = [
+  {source:'BRE Group – Conventions (v12.1) for RdSAP 10', id:'2.05', page:4, topic:'Basements', text:'Basement is the floor of the building which is partly, at least 50 percent of the heat loss perimeter, or entirely below ground level. Included when accessed via a permanent fixed staircase such that one is able to walk safely downwards facing forwards and either the basement is heated via fixed heat emitters, or the basement is open to the rest of the dwelling with no door. If a basement meets the criteria it becomes the lowest occupied floor and internal dimensions must be used throughout the assessment. If it does not meet the criteria it is not included and the floor above is treated as suspended floor above unheated space.'},
+  {source:'BRE Group – Conventions (v12.1) for RdSAP 10', id:'2.06', page:6, topic:'Roof rooms / attics', text:'Include when accessed via a permanent fixed staircase such that one is able to walk downwards facing forwards. For a roof room to be classed as such and not a separate storey, there must be no common wall, or the height of the common wall must be equal to or less than 1.8 metres for 50 percent or more of the common wall, excluding gable ends or party walls. There are Type 1 roof rooms fully within the roof and Type 2 room in roof not fully within the roof where an accessible common wall is part of the room in roof. If any element has known insulation levels the detailed assessment method must be used and all elements measured.'},
+  {source:'BRE Group – Conventions (v12.1) for RdSAP 10', id:'2.13', page:10, topic:'Alternative wall', text:'An alternative wall can be a sheltered wall to an unheated corridor or stairwell, a wall that has a construction type or heat-loss characteristics different from the main external wall, or both. RdSAP 10 allows for two alternative walls per building part to be input, but only one sheltered wall. Always include the alternative wall if it is sheltered irrespective of size. Disregard non-sheltered alternative walls if less than 10 percent of the total exposed wall area of the building part including windows and doors. For stone walls use alternative wall if thickness varies by more than 100 millimetres.'},
+  {source:'BRE Group – Conventions (v12.1) for RdSAP 10', id:'2.14', page:12, topic:'Definition of a window', text:'A window is an opening in an external wall or roof of a building fitted with glass or similar material, usually in a frame, that admits light. A door may be treated as a window if it is considered to be highly glazed. Examples include patio doors, fully glazed doors or French doors. If in doubt, measure it and treat as a window if glazing area is 60 percent or more.'},
+  {source:'BRE Group – Conventions (v12.1) for RdSAP 10', id:'2.15', page:12, topic:'Window area', text:'Assessors are required to measure and enter the width and height of all relevant windows including the visible frame. Relevant windows are all windows, highly glazed doors and roof lights in the heat loss envelopes. For arched windows enter the actual width and enter the height as the average between shoulder height and the height to the top point. For other unusually shaped windows, calculate the area by the most appropriate means.'},
+  {source:'BRE Group – Conventions (v12.1) for RdSAP 10', id:'3.04', page:20, topic:'Access to loft insulation and rafter insulation', text:'Where safe and practicable access to the loft is possible, loft insulation should be measured and photographic evidence provided of its measured thickness. No access means there is no loft hatch or other means of gaining access to the loft space. If there is a loft hatch or other means of gaining access but it could not be used on the date of the site visit record as access, loft insulation unknown. If loft insulation is fully obstructed enter pitched, access, loft insulation unknown unless documentary evidence is available or the obstructions are removed.'},
+  {source:'BRE Group – Conventions (v12.1) for RdSAP 10', id:'3.08', page:24, topic:'U-value entry', text:'The U-values of existing elements such as walls, roofs and floors must be the RdSAP default values and must not be overwritten unless specific documentary evidence of the thermal conductivity of individual materials of the building element of the property being assessed is provided and was undertaken in accordance with BR 443. Documentary evidence applicable to the property being assessed must be provided and recorded if overwriting any default U-value. This evidence must be either relevant building control approval correctly defining the construction and stating the calculated U-value, or a U-value calculation produced or verified by a person with suitable expertise and experience.'},
+  {source:'BRE Group – Conventions (v12.1) for RdSAP 10', id:'3.10', page:25, topic:'Windows U-values and g-values', text:'Default U-values and g-values can be overwritten and known data specified only if documentary evidence is provided, which can be either a Window Energy Rating certificate as defined by BFRC or manufacturer documentation applicable to the property being assessed.'}
+];
+
+const STOP = new Set(['the','and','for','with','that','this','from','into','when','what','does','about','have','there','they','them','your','their','where','which','only','must','used','use','than','then','also','such','will','been','being','under','more','less','part','parts','each','it','is','a','an','of','to','in','on','or','if','as','be','by','at','are']);
+const q = document.getElementById('questionInput');
+const askBtn = document.getElementById('askBtn');
+const clearBtn = document.getElementById('clearBtn');
+const answerArea = document.getElementById('answerArea');
+const evidenceArea = document.getElementById('evidenceArea');
+
+document.querySelectorAll('[data-q]').forEach(b => b.addEventListener('click', () => { q.value = b.dataset.q; answer(); }));
+document.getElementById('themeToggle').addEventListener('click', () => document.documentElement.setAttribute('data-theme', document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
+askBtn.addEventListener('click', answer);
+clearBtn.addEventListener('click', clearSearch);
+q.addEventListener('keydown', e => { if (e.key === 'Enter') answer(); });
+
+function tokenize(text){ return text.toLowerCase().replace(/[^a-z0-9.%/ ]+/g,' ').split(/\s+/).filter(Boolean); }
+function score(query, doc){ const terms = tokenize(query).filter(t => !STOP.has(t)); const text = `${doc.id} ${doc.topic} ${doc.text}`.toLowerCase(); let s = 0; for (const term of terms){ const m = text.match(new RegExp(`\\b${term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}\\b`,'g')); if (m) s += Math.min(m.length * 0.12, 0.36); if (doc.topic.toLowerCase().includes(term)) s += 0.15; if (doc.id === term) s += 0.25; } return s; }
+function esc(s){ return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function hi(text, query){ let out = esc(text); const terms = [...new Set(tokenize(query).filter(t => !STOP.has(t) && t.length > 2))].slice(0,6); for (const term of terms){ const rx = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'ig'); out = out.replace(rx, '<span class="highlight">$1</span>'); } return out; }
+function compose(query, ranked){ if (!ranked.length || ranked[0].score < 0.18) return 'I could not find a confident answer in the embedded BRE PDF extracts. Ask a more specific question using a term from the document, such as basement, roof room, alternative wall, loft insulation, or U-value.'; const top = ranked[0].doc; const second = ranked[1]?.doc; let text = top.text; if (second && ranked[1].score > 0.22) text += ' Related point: ' + second.text; return text; }
+function answer(){ const query = q.value.trim(); if (!query) return; const ranked = DOCS.map(doc => ({doc, score: score(query, doc)})).sort((a,b)=>b.score-a.score).slice(0,4); answerArea.innerHTML = `<div class="panel"><div class="answer">${esc(compose(query, ranked))}</div><span class="cite">Source limited to BRE PDF extracts</span></div>`; evidenceArea.innerHTML = ranked.map(r => `<div class="panel"><strong>${r.doc.id} · ${r.doc.topic}</strong><p>${hi(r.doc.text, query)}</p><span class="cite">${r.doc.source} · p.${r.doc.page}</span></div>`).join(''); }
+function clearSearch(){ q.value = ''; answerArea.innerHTML = ''; evidenceArea.innerHTML = ''; q.focus(); }
+q.value = 'When is a basement included in the assessment?';
+answer();
+</script>
+</body>
+</html>
